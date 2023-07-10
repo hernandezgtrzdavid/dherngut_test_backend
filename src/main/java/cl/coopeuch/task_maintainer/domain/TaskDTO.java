@@ -14,9 +14,7 @@ import java.util.Date;
 public class TaskDTO {
 
     private Integer taskId;
-    @JsonProperty(value = "description", required = true)
     private String description;
     private Date creationDate;
-    @JsonProperty(value = "activeTask", required = true)
     private boolean activeTask;
 }

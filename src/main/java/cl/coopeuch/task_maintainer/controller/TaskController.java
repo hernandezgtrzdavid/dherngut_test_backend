@@ -29,8 +29,7 @@ public class TaskController {
     }
 
     @PostMapping("/save-task")
-    public ResponseEntity<TaskDTO> saveOrUpdateTask(@RequestBody TaskDTO task) throws JsonProcessingException {
-        log.info("TaskDTO de entrada : {}", mapper.writeValueAsString(task));
+    public ResponseEntity<TaskDTO> saveOrUpdateTask(@RequestBody TaskDTO task){
         return new ResponseEntity<>(taskService.saveOrUpdateTask(task), HttpStatus.OK);
     }
 
