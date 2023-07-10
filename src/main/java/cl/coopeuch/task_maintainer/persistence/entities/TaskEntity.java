@@ -1,11 +1,8 @@
 package cl.coopeuch.task_maintainer.persistence.entities;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,11 +14,9 @@ public class TaskEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "creation_user")
-    private String creationUser;
 
     @Column(name = "description")
     private String description;

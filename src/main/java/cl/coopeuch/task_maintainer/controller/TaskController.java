@@ -2,6 +2,8 @@ package cl.coopeuch.task_maintainer.controller;
 
 import cl.coopeuch.task_maintainer.domain.TaskDTO;
 import cl.coopeuch.task_maintainer.service.TaskService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    private final ObjectMapper mapper;
+
     @GetMapping("/get-all-task")
     public ResponseEntity<List<TaskDTO>> getAllTask(){
         log.info("Get all short clients");
@@ -25,13 +29,14 @@ public class TaskController {
     }
 
     @PostMapping("/save-task")
-    public ResponseEntity<TaskDTO> saveOrUpdateTask(TaskDTO task){
+    public ResponseEntity<TaskDTO> saveOrUpdateTask(@RequestBody TaskDTO task) throws JsonProcessingException {
+        log.info("TaskDTO de entrada : {}", mapper.writeValueAsString(task));
         return new ResponseEntity<>(taskService.saveOrUpdateTask(task), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-task")
-    public ResponseEntity<Void> deleteTask(TaskDTO task){
-        taskService.deleteTask(task);
+    public ResponseEntity<Void> deleteTask(@RequestParam Long taskId){
+        taskService.deleteTask(taskId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
